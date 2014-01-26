@@ -15,8 +15,6 @@ class ParticleActor(simOptions: SimulationOptions, clock: ClockActor) extends Ac
 
   private val vMax = math.abs(simOptions.bUp - simOptions.bLow)
 
-  start()
-
   def act() {
     loop {
       react {

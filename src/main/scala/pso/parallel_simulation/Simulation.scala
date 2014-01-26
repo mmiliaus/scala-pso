@@ -23,7 +23,10 @@ class Simulation(options: SimulationOptions) {
 
   }
 
-  def start() = clock ! Start
+  def start() {
+    clock.start()
+    clock ! Start
+  }
 
 
 

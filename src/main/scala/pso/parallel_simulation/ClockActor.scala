@@ -18,8 +18,6 @@ class ClockActor(simOptions: SimulationOptions) extends Actor {
 
   private var running = false
 
-  start()
-
 
   def act() {
     loop {
@@ -47,6 +45,9 @@ class ClockActor(simOptions: SimulationOptions) extends Actor {
           p ! Stop
         exit()
       case Start =>
+
+        allParticleActors.foreach(_.start())
+
         gBestPosition = allParticleActors.reduceLeft(
           (minParticleActor, particle) =>
             if (simOptions.fitnessFunc(particle.getCurrentPosition()) <
