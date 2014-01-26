@@ -6,11 +6,18 @@ import ActorMessages._
  * Created by mmiliauskass on 26/01/2014.
  */
 
-case class SimulationOptions(bLow: Double, bUp: Double, dimCount: Int, phiP: Double, phiG: Double,
-                             particleCount: Int, maxIterations: Int, fitnessFunc: (List[Double]) => Double)
+case class SimulationOptions(
+    bLow: Double,
+    bUp: Double,
+    dimCount: Int,
+    phiP: Double,
+    phiG: Double,
+    particleCount: Int,
+    maxIterations: Int,
+    fitnessFunc: ((List[Double]) => Double)
+  )
 
 class Simulation(options: SimulationOptions) {
-
 
   val clock: ClockActor = new ClockActor(options)
 
@@ -27,11 +34,6 @@ class Simulation(options: SimulationOptions) {
     clock.start()
     clock ! Start
   }
-
-
-
-
-
 
 }
 

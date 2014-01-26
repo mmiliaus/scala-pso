@@ -19,21 +19,15 @@ class ClockActor(simOptions: SimulationOptions) extends Actor {
   private var running = false
 
 
-  def act() {
-    loop {
-      if (running && busyParticleActors.isEmpty)
-        advance()
+  def act():Unit = loop {
+    if (running && busyParticleActors.isEmpty)
+      advance()
 
-      reactToOneMessage()
-    }
+    reactToOneMessage()
   }
 
-  def reactToOneMessage() {
-    react {
+  def reactToOneMessage():Unit = react {
       case Pong(pBestPosition, particle) =>
-
-        //          println("*** ["+ pBestPosition.mkString(", ") + "] -> " + simOptions.fitnessFunc(pBestPosition))
-
         if (simOptions.fitnessFunc(pBestPosition) < gBestFitness) {
           gBestPosition = pBestPosition
           gBestFitness = simOptions.fitnessFunc(pBestPosition)
@@ -57,11 +51,11 @@ class ClockActor(simOptions: SimulationOptions) extends Actor {
               minParticleActor
         ).getCurrentPosition()
         gBestFitness = simOptions.fitnessFunc(gBestPosition)
+
         running = true
-    }
   }
 
-  def advance() {
+  def advance():Unit = {
     println("Best position: [" + gBestPosition.mkString(", ") + "] -> " + gBestFitness)
 
     if (busyParticleActors.isEmpty && currentTime == simOptions.maxIterations) {
@@ -78,11 +72,9 @@ class ClockActor(simOptions: SimulationOptions) extends Actor {
       p ! Ping(currentTime, gBestPosition)
       busyParticleActors += p
     }
-
-
   }
 
-  def add(p: ParticleActor) {
+  def add(p: ParticleActor):Unit = {
     allParticleActors = p :: allParticleActors
   }
 
