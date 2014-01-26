@@ -1,5 +1,7 @@
 package pso
 
+import parallel_simulation._
+
 /**
  * Created by mmiliauskass on 25/01/2014.
  */
@@ -11,12 +13,12 @@ object Demo extends App {
     dimCount = 2,
     phiP = 2.0,
     phiG = 2.0,
-    particleCount = 1000,
-    maxIterations = 100000,
+    particleCount = 10,
+    maxIterations = 1000,
     fitnessFunc = p => (p.map(x => -x * math.sin(math.sqrt(math.abs(x))))).reduceLeft(_+_)
   )
 
-  val simulation = new PsoSimulation(simOptions)
+  val simulation = new Simulation(simOptions)
   simulation.start()
 
 }
